@@ -17,6 +17,7 @@ submitButton.addEventListener('click', ($event) => {
     title: titleInput.value,
     content: contentInput.value
   };
+  submitFormData(post);
 });
 
 function makeRequest(data) {
@@ -36,3 +37,32 @@ function makeRequest(data) {
     request.send(JSON.stringify(data));
   });
 }
+
+async function submitFormData(post) {
+  try{
+    const requestPromise = makeRequest(post);
+    const response = await requestPromise;
+    
+    responseMessage.textContent = response.message;
+    responseTitle.textContent = response.post.title;
+    responseId.textContent = response.post.id;
+    responseContent.textContent = response.post.content;
+  }
+  catch (errorResponse){
+    responseMessage.textContent = errorResponse.error;
+
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+

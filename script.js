@@ -18,3 +18,25 @@ submitButton.addEventListener($click) => {
   };
 };
 
+function makeRequest(data) {
+ return new Promise((resolve, reject) => {
+   let request = XMLHttpRequest();
+   request.open('POST', api + '/create-post')
+   
+   request.onreadystatechange = () => {
+     if (request.readyState === 4) {
+       if (request.status === 201) {
+         resolve(JSON.parse(request.response));
+       } else {
+         reject(JSON.parse(request.response));
+       }
+     }
+   };
+   request.setRequestHeader('Content-Type', 'application/json');
+   request.send(JSON.stringify(data));
+ }); 
+};
+
+
+
+
